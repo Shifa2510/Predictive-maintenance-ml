@@ -8,9 +8,9 @@ numpy
 matplotlib
 seaborn
 
-# Machine learning
+# Machine learning - match the model's original version
 
-scikit-learn
+scikit-learn==1.6.1
 
 # Model persistence
 
@@ -24,4 +24,3 @@ streamlit
 
 jupyter
 ipykernel
-
