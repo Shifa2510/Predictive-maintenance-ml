@@ -1,0 +1,27 @@
+# Data processing
+
+pandas
+numpy
+
+# Data visualization
+
+matplotlib
+seaborn
+
+# Machine learning
+
+scikit-learn
+
+# Model persistence
+
+joblib
+
+# Interactive web application
+
+streamlit
+
+# Jupyter Notebook support
+
+jupyter
+ipykernel
+
