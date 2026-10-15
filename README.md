@@ -1,162 +1,134 @@
-# ⚙️ Predictive Maintenance ML: Machine Failure Prediction
+# ⚙️ Predictive Maintenance ML
 
-An end-to-end machine learning project that analyses industrial machine sensor data, predicts potential machine failures, and presents predictions through an interactive Streamlit application.
+### Machine Learning for Industrial Equipment Failure Prediction
+
+An end-to-end machine learning project that predicts potential industrial machine failures using operational sensor data. Built with Python and Scikit-learn, this project combines data exploration, classification, model evaluation, feature importance analysis, and an interactive Streamlit application.
+
+<p align="center">
+  <a href="https://predictive-maintenance-ml-shifa.streamlit.app/">
+    <img src="https://img.shields.io/badge/🚀_Live_Demo-Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" alt="Live Demo">
+  </a>
+  <a href="https://github.com/Shifa2510/Predictive-maintenance-ml">
+    <img src="https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github" alt="GitHub Repository">
+  </a>
+</p>
+
+---
 
 ## 📌 Project Overview
 
-Unexpected equipment failures can lead to production downtime, maintenance costs, and operational inefficiencies.
+Unexpected equipment failures can interrupt manufacturing operations, increase maintenance costs, and reduce productivity.
 
-Predictive maintenance uses historical data and machine learning to identify patterns associated with equipment failures. This project explores the AI4I 2020 Predictive Maintenance Dataset and develops a Random Forest classifier to estimate the probability of machine failure.
+Traditional maintenance approaches often rely on fixed schedules or react only after a machine fails. Predictive maintenance uses operational data and machine learning to identify patterns associated with potential failures.
 
-The project covers data understanding, exploratory data analysis, feature selection, model development, evaluation, threshold tuning, and interactive application development.
+This project develops a binary classification model that analyzes machine operating conditions and predicts whether a machine failure is likely according to the patterns learned from historical data.
 
-## 🎯 Objectives
+### Project Objectives
 
-* Understand industrial machine sensor data.
-* Investigate missing values, duplicate records, and failure frequency.
-* Explore relationships between sensor measurements and machine failures.
-* Build and evaluate machine learning models.
-* Address class imbalance using appropriate evaluation metrics.
-* Select a classification threshold using validation data.
-* Save the trained model for reuse.
-* Develop an interactive application for machine-failure prediction.
-* Present model evaluation results through a user-friendly interface.
+* Explore and understand industrial machine sensor data.
+* Perform exploratory data analysis (EDA).
+* Prepare features for machine learning.
+* Train a Random Forest classification model.
+* Evaluate performance with a focus on failure detection.
+* Analyze feature importance to understand influential operating parameters.
+* Deploy an interactive application for machine failure predictions.
+
+## 🚀 Live Application
+
+**Try the deployed application:**
+
+### [Open Predictive Maintenance ML →](https://predictive-maintenance-ml-shifa.streamlit.app/)
+
+The Streamlit application allows users to enter machine operating parameters and obtain a model prediction.
+
+> **Note:** The application may take a short time to load after a period of inactivity because the hosted service can go to sleep.
+
+## 🧠 How It Works
+
+The project follows a machine learning workflow:
+
+1. **Data understanding:** Examine the dataset, its features, and the target variable.
+2. **Exploratory analysis:** Investigate feature distributions and relationships in the data.
+3. **Data preparation:** Separate input features from the target and prepare the data for model training.
+4. **Model development:** Train a Random Forest classifier.
+5. **Threshold selection:** Use a classification threshold of 0.40 to adjust the balance between detecting failures and avoiding false alarms.
+6. **Model evaluation:** Measure accuracy, precision, recall, F1-score, and confusion matrix results.
+7. **Feature importance:** Identify which operating parameters contribute most to the model's predictions.
+8. **Deployment:** Integrate the trained model into an interactive Streamlit application.
 
 ## 📊 Dataset
 
 **Dataset:** AI4I 2020 Predictive Maintenance Dataset
-**Source:** UCI Machine Learning Repository
 
-The dataset contains 10,000 records representing machine operating conditions and failure information.
+**Source:** [UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/601/ai4i+2020+predictive+maintenance+dataset)
 
-### Selected Features
+The AI4I 2020 dataset provides synthetic industrial sensor measurements designed to reflect predictive maintenance challenges.
 
-| Feature                 | Description                                  |
-| ----------------------- | -------------------------------------------- |
-| Type                    | Machine product quality category: L, M, or H |
-| Air temperature [K]     | Ambient air temperature in Kelvin            |
-| Process temperature [K] | Machine process temperature in Kelvin        |
-| Rotational speed [rpm]  | Rotational speed in revolutions per minute   |
-| Torque [Nm]             | Torque measured in Newton-metres             |
-| Tool wear [min]         | Tool wear measured in minutes                |
+| Dataset characteristic | Description           |
+| ---------------------- | --------------------- |
+| Number of records      | 10,000                |
+| Prediction task        | Binary classification |
+| Target variable        | Machine failure       |
+| Failure records        | 339                   |
+| Non-failure records    | 9,661                 |
+| Failure prevalence     | Approximately 3.39%   |
 
-**Target variable:** `Machine failure`
+### Input Features
 
-The target indicates whether a machine failure occurred.
+| Feature                   | Description                                        |
+| ------------------------- | -------------------------------------------------- |
+| `Type`                    | Product quality category                           |
+| `Air temperature [K]`     | Ambient air temperature in kelvin                  |
+| `Process temperature [K]` | Machine process temperature in kelvin              |
+| `Rotational speed [rpm]`  | Machine rotational speed in revolutions per minute |
+| `Torque [Nm]`             | Operating torque in newton-metres                  |
+| `Tool wear [min]`         | Accumulated tool wear in minutes                   |
 
-Identifiers and failure subtype indicators were excluded from the selected model features to reduce the risk of data leakage.
+### Prediction Target
 
-## 🛠️ Technologies Used
+`Machine failure`
 
-* **Python** — programming and data analysis
-* **Pandas and NumPy** — data processing
-* **Matplotlib and Seaborn** — exploratory data visualization
-* **Scikit-learn** — machine learning, preprocessing, and evaluation
-* **Joblib** — model serialization
-* **Jupyter Notebook** — experimentation and analysis
-* **Streamlit** — interactive web application
-* **Git and GitHub** — version control and project hosting
+* **0:** No machine failure recorded.
+* **1:** Machine failure recorded.
 
-## 📁 Project Structure
+The dataset is imbalanced, with failure cases representing approximately 3.39% of all records. This makes failure detection more challenging than ordinary classification because a model can achieve high accuracy while still missing many actual failures.
 
-```text
-predictive-maintenance-ml/
-│
-├── app.py
-├── requirements.txt
-├── README.md
-├── .gitignore
-│
-├── data/
-│   ├── raw/
-│   └── processed/
-│
-├── notebooks/
-│   ├── 01_data_understanding.ipynb
-│   ├── 02_exploratory_analysis.ipynb
-│   └── 03_model_training.ipynb
-│
-├── models/
-│   └── random_forest_model.joblib
-│
-├── reports/
-│   └── figures/
-│
-└── src/
-    └── __init__.py
-```
+## 🛠️ Technology Stack
 
-*The dataset, processed files, and trained model may be stored locally or included in the repository, depending on repository size and redistribution considerations.*
+| Category                | Technologies              |
+| ----------------------- | ------------------------- |
+| Programming language    | Python                    |
+| Data manipulation       | Pandas, NumPy             |
+| Machine learning        | Scikit-learn              |
+| Model                   | Random Forest Classifier  |
+| Model persistence       | Joblib                    |
+| Visualization           | Matplotlib, Seaborn       |
+| Interactive application | Streamlit                 |
+| Experimentation         | Jupyter Notebook          |
+| Version control         | Git, GitHub               |
+| Deployment              | Streamlit Community Cloud |
 
-## 🔍 Project Workflow
+## 🤖 Machine Learning Model
 
-### 1. Data Understanding
+### Random Forest Classifier
 
-* Loaded and inspected the dataset.
-* Examined dataset dimensions and feature types.
-* Checked for missing values and duplicate records.
-* Analysed the distribution of machine failures.
-* Identified identifiers and potential target-leakage features.
+The project uses a Random Forest classifier to learn relationships between machine operating conditions and historical failure outcomes.
 
-### 2. Exploratory Data Analysis
+Random Forest combines predictions from multiple decision trees to produce a classification result. It can model nonlinear relationships between operational parameters and provides feature importance estimates.
 
-* Visualized machine-failure frequency.
-* Compared failures across machine types.
-* Examined distributions of numerical sensor measurements.
-* Compared sensor measurements for failed and non-failed machines.
-* Investigated correlations among numerical features.
-* Summarized findings from exploratory analysis.
+### Classification Threshold
 
-### 3. Model Development
+A classification threshold of **0.40** was used for the reported evaluation.
 
-A dummy classifier was established as a baseline before developing the Random Forest classifier.
+Lowering the threshold from the usual 0.50 can increase the number of failures detected, but it can also increase false alarms. The appropriate threshold depends on the relative costs of missed failures and unnecessary maintenance.
 
-The model uses six input features:
-
-* Machine type
-* Air temperature
-* Process temperature
-* Rotational speed
-* Torque
-* Tool wear
-
-The dataset was split into training, validation, and held-out test sets using stratified sampling to preserve the proportion of failure records.
-
-### 4. Class Imbalance and Threshold Tuning
-
-Machine failures represent a small proportion of the dataset. Consequently, accuracy alone is insufficient to assess model quality.
-
-A validation set was used to compare classification thresholds. A threshold of **0.40** was selected from the tested options based on its F1-score.
-
-The final performance was evaluated using the held-out test set.
-
-### 5. Model Evaluation
-
-The model was evaluated using:
-
-* Accuracy
-* Precision
-* Recall
-* F1-score
-* Confusion matrix
-
-These metrics provide a more informative view of failure detection performance than accuracy alone.
-
-### 6. Model Persistence
-
-The trained Random Forest pipeline was saved using Joblib:
-
-`models/random_forest_model.joblib`
-
-The saved pipeline contains the model and its preprocessing steps.
-
-The Streamlit application loads this saved model and applies the selected classification threshold when generating predictions.
+The selected threshold is a project configuration, not a universally optimal industrial threshold.
 
 ## 📈 Model Performance
 
-The Random Forest classifier achieved the following results on the held-out test set using a threshold of 0.40.
+The following results were obtained from the held-out test set using the 0.40 classification threshold.
 
-| Metric    |  Score |
+| Metric    | Result |
 | --------- | -----: |
 | Accuracy  | 98.05% |
 | Precision | 83.72% |
@@ -170,130 +142,218 @@ The Random Forest classifier achieved the following results on the held-out test
 | No Failure         |      1,925 |       7 |
 | Failure            |         32 |      36 |
 
-### Interpretation
+### Understanding the Results
 
-* **1,925 true negatives:** Non-failure records correctly classified.
-* **7 false positives:** Non-failure records incorrectly classified as failures.
-* **32 false negatives:** Actual failures that the model did not detect.
-* **36 true positives:** Actual failures correctly identified.
+* **Accuracy — 98.05%:** Approximately 98% of test predictions were correct.
+* **Precision — 83.72%:** Of the cases predicted as failures, approximately 84% were actual failures.
+* **Recall — 52.94%:** The model detected 36 of the 68 actual failure cases in the test set.
+* **F1-score — 64.86%:** The model achieved a balance between precision and recall, with room for improvement.
 
-The model achieved high precision, but its recall indicates that it missed some actual failures.
+### Why Recall Matters
 
-Improving recall while keeping false alarms manageable is an important direction for future development.
+In predictive maintenance, missing a potential failure can be costly. Therefore, accuracy alone is not enough to evaluate a model.
 
-## 🖥️ Interactive Streamlit Application
+The model's recall of 52.94% indicates that it missed 32 of the 68 actual failure cases in the test set. Improving failure detection while maintaining an acceptable false-alarm rate is an important next step.
 
-The project includes a Streamlit application that allows users to interact with the trained model.
+These results are based on a synthetic dataset and should not be interpreted as evidence of production-level industrial reliability.
 
-### Features
+## 🔍 Feature Importance
 
-**1. Machine Failure Prediction**
+The trained Random Forest model provides estimates of the relative importance of input features.
 
-* Select a machine type.
-* Enter air temperature and process temperature.
-* Enter rotational speed, torque, and tool wear.
-* Generate a prediction using the saved Random Forest pipeline.
+| Feature          | Importance |
+| ---------------- | ---------: |
+| Rotational speed |     31.05% |
+| Torque           |     28.79% |
+| Tool wear        |     20.24% |
 
-**2. Failure Probability**
+These are the three leading features in the reported model analysis.
 
-* View the model's estimated failure probability.
-* Compare the probability with the configured classification threshold of 0.40.
-* View the resulting failure or no-failure classification.
+### Key Observations
 
-**3. Model Evaluation Dashboard**
+* **Rotational speed:** Contributes the largest share of the model's feature importance.
+* **Torque:** Represents another influential operating parameter.
+* **Tool wear:** Captures accumulated wear that may be associated with machine operating conditions.
 
-* Explore accuracy, precision, recall, and F1-score.
-* View the confusion matrix.
-* Understand false positives, false negatives, true positives, and true negatives.
+Feature importance describes how the trained model uses features; it does not establish that a feature causes machine failure.
 
-**4. Project Information**
+## 🌐 Streamlit Application
 
-* Explore the dataset, technologies, workflow, and model limitations.
+The project includes a web application that makes the trained classifier accessible through an interactive interface.
 
-The evaluation tab displays the previously recorded test results; it does not retrain the model or independently recalculate those metrics.
+### Application Capabilities
 
-## 🚀 Run the Application Locally
+* Enter machine operating parameters.
+* Submit sensor measurements for prediction.
+* View the resulting machine failure classification.
+* Interact with the trained model without manually running a notebook.
+
+**Live demo:** [Predictive Maintenance ML](https://predictive-maintenance-ml-shifa.streamlit.app/)
+
+## 📁 Repository Structure
+
+```text
+Predictive-maintenance-ml/
+│
+├── app.py
+├── requirements.txt
+├── README.md
+├── .gitignore
+│
+├── notebooks/
+│   ├── 01_data_understanding.ipynb
+│   ├── 02_exploratory_analysis.ipynb
+│   └── 03_model_training.ipynb
+│
+├── models/
+│   └── random_forest_model.joblib
+│
+├── reports/
+│   └── figures/
+│
+└── src/
+```
+
+### Main Components
+
+| Component                                 | Purpose                                        |
+| ----------------------------------------- | ---------------------------------------------- |
+| `app.py`                                  | Streamlit application and prediction interface |
+| `requirements.txt`                        | Python dependency definitions                  |
+| `notebooks/01_data_understanding.ipynb`   | Initial dataset exploration                    |
+| `notebooks/02_exploratory_analysis.ipynb` | Exploratory data analysis                      |
+| `notebooks/03_model_training.ipynb`       | Model development and evaluation               |
+| `models/random_forest_model.joblib`       | Saved Random Forest model                      |
+| `reports/figures/`                        | Project analysis and visualization figures     |
+| `src/`                                    | Supporting project source code                 |
+
+## 💻 Run Locally
+
+Follow these steps to run the project on your computer.
 
 ### Prerequisites
 
-* Python installed on your computer.
-* The project files available locally.
-* The trained model saved at `models/random_forest_model.joblib`.
+* Python 3.11 recommended for the current deployment configuration.
+* Git.
+* A terminal or command prompt.
 
-### Step 1: Open the project directory
-
-Open a terminal in the project root directory.
-
-### Step 2: Install dependencies
+### 1. Clone the repository
 
 ```bash
+git clone https://github.com/Shifa2510/Predictive-maintenance-ml.git
+```
+
+### 2. Navigate to the project directory
+
+```bash
+cd Predictive-maintenance-ml
+```
+
+### 3. Create a virtual environment
+
+**Windows:**
+
+```bash
+py -3.11 -m venv .venv
+.venv\Scripts\activate
+```
+
+**macOS/Linux:**
+
+```bash
+python3.11 -m venv .venv
+source .venv/bin/activate
+```
+
+### 4. Install dependencies
+
+```bash
+python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
 ```
 
-### Step 3: Launch Streamlit
+### 5. Launch the application
 
 ```bash
 python -m streamlit run app.py
 ```
 
-### Step 4: Open the application
+Streamlit will display a local address, usually:
 
-Streamlit normally opens the application automatically in your browser.
+```text
+http://localhost:8501
+```
 
-If it does not, visit:
+Open the address in your browser to interact with the application.
 
-`http://localhost:8501`
+> **Compatibility note:** The project uses a serialized Scikit-learn model. When loading saved models, use a compatible environment and dependency versions. The current `requirements.txt` is the source of truth for the project's dependencies.
 
-### Step 5: Make a prediction
+## ⚖️ Limitations
 
-1. Open the **Failure Prediction** tab.
-2. Enter the machine sensor measurements.
-3. Click **Predict Machine Failure**.
-4. Review the estimated probability and classification.
-5. Open **Model Evaluation** to explore the recorded test results.
+This project is an educational and portfolio-oriented machine learning application, not a certified industrial safety system.
 
-## 🧠 Key Learnings
+Important limitations include:
 
-* Performing exploratory analysis on industrial sensor data.
-* Identifying class imbalance in classification problems.
-* Establishing a baseline for model comparison.
-* Building a machine-learning pipeline with preprocessing.
-* Evaluating models using precision, recall, F1-score, and a confusion matrix.
-* Selecting a classification threshold using validation data.
-* Saving and loading a trained model with Joblib.
-* Building an interactive machine-learning application using Streamlit.
-* Communicating model performance and limitations.
+* **Synthetic data:** The AI4I dataset is synthetic and may not capture the full complexity of real industrial equipment.
+* **Class imbalance:** Failure cases represent only a small proportion of the dataset.
+* **Missed failures:** The evaluated model did not detect every failure in the test set.
+* **False alarms:** Predictions may incorrectly flag machines that would not fail.
+* **Generalization:** Performance on this dataset does not guarantee similar results on unseen machines or real-world sensor streams.
+* **Operational context:** The model does not replace engineering inspection, maintenance expertise, or established safety procedures.
+
+Real-world deployment would require validation using representative industrial data, appropriate monitoring, and assessment of the operational costs of missed failures and false alarms.
 
 ## 🔮 Future Improvements
 
-* Investigate gradient-boosting models and other classification algorithms.
-* Explore precision-recall curves and additional classification thresholds.
-* Use cross-validation to assess model stability.
-* Investigate the different machine failure modes.
-* Add more detailed visualizations and prediction explanations.
-* Develop an API for machine-failure predictions.
-* Deploy the application online.
-* Add automated tests and model-monitoring capabilities.
+Potential areas for further development include:
 
-## ⚠️ Limitations
+* Improve failure recall through threshold optimization and class-imbalance strategies.
+* Compare Random Forest with alternative classification algorithms.
+* Apply cross-validation and systematic model selection.
+* Explore anomaly detection for identifying unusual machine behaviour.
+* Add explainability techniques to support individual predictions.
+* Evaluate model calibration and uncertainty.
+* Investigate data drift and model performance monitoring.
+* Explore integration with real-time sensor data.
+* Add automated tests and model validation checks.
 
-* The model was trained and evaluated on a single public dataset.
-* Performance on real industrial equipment may differ from the reported results.
-* The model missed 32 of the 68 actual failures in the held-out test set.
-* The selected threshold reflects the validation experiment and may not be suitable for every maintenance scenario.
-* The application is an educational demonstration and has not been validated for operational industrial use.
-* A predicted probability is a model estimate, not a guarantee that a machine will or will not fail.
+These are planned enhancements, not features currently claimed as implemented.
 
-The application should not be used as the sole basis for safety-critical or operational maintenance decisions.
+## 🎯 Skills Demonstrated
 
-## 📚 Dataset Reference
+This project demonstrates practical work in:
 
-Matzka, S. (2020). *Explainable Artificial Intelligence for Predictive Maintenance Applications.* 2020 IEEE International Conference on Big Data (Big Data).
+* Python programming.
+* Data preparation and exploratory data analysis.
+* Supervised machine learning.
+* Binary classification.
+* Imbalanced classification evaluation.
+* Precision, recall, F1-score, and confusion matrix analysis.
+* Feature importance interpretation.
+* Model serialization and loading.
+* Interactive application development with Streamlit.
+* Git and GitHub.
+* Cloud application deployment.
 
-Dataset: AI4I 2020 Predictive Maintenance Dataset, UCI Machine Learning Repository.
+## 👩‍💻 Author
 
-## 👩‍💻 Project Summary
+**Shifa K**
 
-This project demonstrates an end-to-end machine-learning workflow for industrial predictive maintenance, from data exploration and model development to evaluation, model persistence, and an interactive Streamlit application.
+B.E. Computer Science and Engineering student
+Al Ameen Engineering College
 
-It provides a foundation for further work on reliable failure detection, particularly improving recall and reducing missed failures.
+* GitHub: [@Shifa2510](https://github.com/Shifa2510)
+* Project repository: [Predictive-maintenance-ml](https://github.com/Shifa2510/Predictive-maintenance-ml)
+* Live application: [Streamlit Demo](https://predictive-maintenance-ml-shifa.streamlit.app/)
+
+## 📚 References
+
+1. [AI4I 2020 Predictive Maintenance Dataset — UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/601/ai4i+2020+predictive+maintenance+dataset)
+2. [Scikit-learn Documentation](https://scikit-learn.org/stable/)
+3. [Streamlit Documentation](https://docs.streamlit.io/)
+
+---
+
+<p align="center">
+  <strong>Building practical machine learning projects to explore data-driven decision-making.</strong>
+</p>
